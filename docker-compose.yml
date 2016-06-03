@@ -1,0 +1,30 @@
+version: '2'
+
+
+volumes:
+
+  devpi_packages:
+    external: true
+
+
+services:
+
+  loadbalancer:
+    container_name: devpi_lb
+    image: devpi_lb
+    build: loadbalancer
+    # Uncomment if you're using docker-machine on OSX to expose NAT the virtual
+    # machine's port 80 to the container.
+    # ports:
+    #   - "80:80"
+    volumes:
+      - devpi_packages:/var/lib/devpi:ro
+    links:
+      - server
+
+  server:
+    container_name: devpi_server
+    image: devpi_server
+    build: server
+    volumes:
+      - devpi_packages:/var/lib/devpi
