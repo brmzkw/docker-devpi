@@ -36,7 +36,6 @@ You can check the containers are correctly started:
 
 ```bash
 $> docker ps
-$> docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS               NAMES
 e3bc0fcc741b        devpi_lb            "nginx -g 'daemon off"   1 seconds ago       Up 1 seconds            80/tcp, 443/tcp     devpi_lb
 38f2f5fe6d2e        devpi_server        "/bin/sh -c 'devpi-se"   1 seconds ago       Up 1 seconds            4040/tcp            devpi_server
@@ -44,7 +43,7 @@ e3bc0fcc741b        devpi_lb            "nginx -g 'daemon off"   1 seconds ago  
 
 To get the load balancer IP address, execute `docker inspect --format '{{
 .NetworkSettings.Networks.devpi_default.IPAddress }}' devpi_lb`. The web
-interface is available at `http://<lb_ip>`.
+interface is available at `http://<devpi_loadbalancer>`.
 
 If you are using [docker machine] [docker machine] (probably because you're on
 OSX), uncomment the `ports` section of
@@ -100,8 +99,8 @@ Configure devpi-client to use your server:
 $> devpi use http://<devpi loadbalancer>
 ```
 
-Note: this command updates the devpi configuration file located at
-`~/.devpi/client/current.json`.
+*Note: this command updates the devpi configuration file located at
+`~/.devpi/client/current.json`.*
 
 
 ### Configure the root account
@@ -167,8 +166,8 @@ With `volatile=False`:
 * If a project verison is uploaded, it can not be removed or overriden.
 
 
-The webpage of the index is located at `http://<lb_ip>/root/<company_name>`. You
-can also use the client:
+The webpage of the index is located at
+`http://<devpi_loadbalancer>/root/<company_name>`. You can also use the client:
 
 ```bash
 $> devpi getjson /root/<username>
@@ -194,15 +193,16 @@ Using the devpi mirror
 
 To use your devpi server, you need to give some configuration files to Python.
 Most of these files can be created with `devpi use root/<company_name>
---set-cfg` when you are logged as your user (with `devpi use http://<lb_ip>`
-then `devpi login <username>`) but from then, we will assume you don't have the
-devpi client as it is not necessary to use the mirror.
+--set-cfg` when you are logged as your user (with `devpi use
+http://<devpi_loadbalancer>` then `devpi login <username>`) but from then, we
+will assume you don't have the devpi client as it is not necessary to use the
+mirror.
 
 * Create `~/.pydistutils.cfg` with:
 
 ```bash
 [easy_install]
-index_url = http://<lb_ip>/root/<company_name>/+simple/
+index_url = http://<devpi_loadbalancer>/root/<company_name>/+simple/
 ```
 
 This file is used by [distutils](https://docs.python.org/2/distutils/).
@@ -211,9 +211,9 @@ This file is used by [distutils](https://docs.python.org/2/distutils/).
 
 ```bash
 [global]
-index_url = http://192.168.99.100/root/scaleway/+simple/
+index_url = http://<devpi loadbalancer>/root/scaleway/+simple/
 [search]
-index = http://192.168.99.100/root/scaleway/
+index = http://<devpi loadbalancer>/root/scaleway/
 ```
 
 This file is used by `pip install` and `pip search`.
@@ -235,7 +235,7 @@ repository = https://pypi.python.org/pypi
 username = <devpi username>
 password = <devpi password>
 # Keep the trailing slash!
-repository = http://<lb_ip>/root/<company_name>/
+repository = http://<devpi_loadbalancer>/root/<company_name>/
 ```
 
 This file is used to upload packages (as explained below) to your devpi mirror.
@@ -248,12 +248,11 @@ The *pypi* section is used to upload packages on
 If your configuration files are correctly set, you should be able to download packages with:
 
 ```bash
-$> pip install <package_name> --trusted-host <lb_ip>
+$> pip install <package_name> --trusted-host <devpi_loadbalancer>
 ```
 
-(**NOTE**: `--trusted-host` is required because, for now, the
-docker-compose.yml doesn't setup SSL for the devpi mirror, which is required by
-pip)
+**NOTE**: `--trusted-host` is required because, for now, the docker-compose.yml
+doesn't setup SSL for the devpi mirror, which is required by pip.
 
 
 ### Upload packages
