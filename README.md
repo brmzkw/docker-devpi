@@ -211,9 +211,9 @@ This file is used by [distutils](https://docs.python.org/2/distutils/).
 
 ```bash
 [global]
-index_url = http://<devpi loadbalancer>/root/scaleway/+simple/
+index_url = http://<devpi loadbalancer>/root/<company_name>/+simple/
 [search]
-index = http://<devpi loadbalancer>/root/scaleway/
+index = http://<devpi loadbalancer>/root/<company_name>/
 ```
 
 This file is used by `pip install` and `pip search`.
