@@ -13,7 +13,7 @@ services:
     container_name: devpi_lb
     image: devpi_lb
     build: loadbalancer
-    # Uncomment if you're using docker-machine on OSX to expose NAT the virtual
+    # Uncomment if you're using docker-machine on OSX to expose the virtual
     # machine's port 80 to the container.
     # ports:
     #   - "80:80"
