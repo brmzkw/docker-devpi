@@ -17,4 +17,8 @@ RUN pip install devpi-server devpi-web devpi-client
 EXPOSE 4040
 VOLUME /var/lib/devpi
 
-CMD ["devpi-server", "--host", "0.0.0.0", "--port", "4040", "--serverdir", "/var/lib/devpi"]
+
+ADD run-devpi-server.sh /
+ADD configure-system.sh /
+
+ENTRYPOINT ["/run-devpi-server.sh"]

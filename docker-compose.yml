@@ -15,8 +15,8 @@ services:
     build: loadbalancer
     # Uncomment if you're using docker-machine on OSX to expose the virtual
     # machine's port 80 to the container.
-    # ports:
-    #   - "80:80"
+    ports:
+      - "80:80"
     volumes:
       - devpi_packages:/var/lib/devpi:ro
     links:
