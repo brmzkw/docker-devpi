@@ -19,5 +19,5 @@ index-servers =
 [devpi]
 username = root
 password = root
-repository = http://<devpi_loadbalancer>/root/myindex/
+repository = http://localhost:4040/root/myindex/
 EOF
