@@ -14,6 +14,15 @@ RUN easy_install pip
 
 RUN pip install devpi-server devpi-web devpi-client
 
+# Useful Python packages.
+RUN pip install \
+    nose \
+    pep8 \
+    pylint \
+    wheel \
+    coverage \
+    tox
+
 EXPOSE 4040
 VOLUME /var/lib/devpi
 
