@@ -1,10 +1,9 @@
-This [docker-compose] [compose] file can be used to create your local Pypi
-mirror using [devpi] [devpi].
+This [docker-compose][compose] file can be used to create your local Pypi
+mirror using [devpi][devpi].
 
-It can be used to have a local cache of [pypi.python.org] and to push your
-private packages.
+It can be used to have a local cache of [pypi.python.org](https://pypi.python.org/pypi) and to push your private packages.
 
-**As stated in the [documentation] [devpi security], it is not safe to expose
+**As stated in the [documentation][devpi security], it is not safe to expose
 devpi-server to the internet. Use it in your local, trusted network.**
 
 
@@ -45,7 +44,7 @@ To get the load balancer IP address, execute `docker inspect --format '{{
 .NetworkSettings.Networks.devpi_default.IPAddress }}' devpi_lb`. The web
 interface is available at `http://<devpi_loadbalancer>`.
 
-If you are using [docker machine] [docker machine] (probably because you're on
+If you are using [docker machine][docker machine] (probably because you're on
 OSX), uncomment the `ports` section of
 [docker-compose.yml](docker-compose.yml). In this case, the web interface is
 available at `http://$(docker-machine ip)`.
@@ -57,7 +56,7 @@ available at `http://$(docker-machine ip)`.
 Server administration
 =====================
 
-Devpi comes with a [client] [devpi client] that can be used to manage your
+Devpi comes with a [client][devpi client] that can be used to manage your
 server, create users, and so on.
 
 This section explains how to:
